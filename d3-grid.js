@@ -1,11 +1,11 @@
 (function() {
   var DEBUG = false;
 
-  d3.layout.grid = function() {
+  d3.grid = function() {
     var mode = "equal",
         layout = _distributeEqually,
-        x = d3.scale.ordinal(),
-        y = d3.scale.ordinal(),
+        x = d3.scalePoint(),
+        y = d3.scalePoint(),
         size = [1, 1],
         actualSize = [0, 0],
         nodeSize = false,
@@ -40,13 +40,13 @@
         actualSize[0] = bands ? x(_cols - 1) + size[0] : x(_cols - 1);
         actualSize[1] = bands ? y(_rows - 1) + size[1] : y(_rows - 1);
       } else if (bands) {
-        x.domain(d3.range(_cols)).rangeBands([0, size[0]], padding[0], 0);
-        y.domain(d3.range(_rows)).rangeBands([0, size[1]], padding[1], 0);
+        x.domain(d3.range(_cols)).range([0, size[0]], padding[0], 0);
+        y.domain(d3.range(_rows)).range([0, size[1]], padding[1], 0);
         actualSize[0] = x.rangeBand();
         actualSize[1] = y.rangeBand();
       } else {
-        x.domain(d3.range(_cols)).rangePoints([0, size[0]]);
-        y.domain(d3.range(_rows)).rangePoints([0, size[1]]);
+        x.domain(d3.range(_cols)).range([0, size[0]]);
+        y.domain(d3.range(_rows)).range([0, size[1]]);
         actualSize[0] = x(1);
         actualSize[1] = y(1);
       }
